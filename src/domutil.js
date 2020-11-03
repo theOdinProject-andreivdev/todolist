@@ -8,7 +8,7 @@ import {
   getSelectedProjectName,
   removeProjectByDOM,
 } from "./projects";
-import { getAllTasks } from "./tasks";
+import { getAllTasks, addNewTask, removeTaskByDOM } from "./tasks";
 
 export function createSidebar() {
   displayProjects();
@@ -17,6 +17,18 @@ export function createSidebar() {
   addButton.addEventListener("click", function () {
     let projectName = prompt("Please insert project name:");
     addNewProject(projectName, "notDone");
+  });
+}
+
+export function createTaskContainer() {
+  let addTaskButton = document.querySelector(".addTask");
+
+  addTaskButton.addEventListener("click", function () {
+    let taskName = prompt("Please enter task name");
+
+    if (taskName != "" && taskName != null) {
+      addNewTask(taskName, "notDone", "priority-low", getSelectedProjectName());
+    }
   });
 }
 
@@ -35,10 +47,11 @@ export function displayProjects() {
 
     projectCard.dataset.name = thisProject.name;
 
-    let projectRemove = document.createElement("div");
+    let projectRemove = document.createElement("i");
     projectRemove.classList.add("projectRemove");
+    projectRemove.classList.add("fas");
+    projectRemove.classList.add("fa-trash");
     projectRemove.dataset.name = thisProject.name;
-    projectRemove.textContent = "Remove";
     projectRemove.addEventListener("click", function (e) {
       if (confirm("Are you sure you want to remove project?"))
         removeProjectByDOM(e);
@@ -59,7 +72,6 @@ export function displayProjects() {
 
 export function displayTasks(projectName) {
   let container = document.querySelector(".container");
-
   while (container.firstChild) container.removeChild(container.firstChild);
 
   for (let i = 0; i < getAllTasks().length; i++) {
@@ -67,6 +79,7 @@ export function displayTasks(projectName) {
     if (thisTask.project == projectName) {
       let taskCard = document.createElement("div");
       taskCard.classList.add("taskCard");
+      taskCard.classList.add(thisTask.priority);
       taskCard.dataset.name = thisTask.name;
 
       let taskName = document.createElement("div");
@@ -74,8 +87,20 @@ export function displayTasks(projectName) {
       taskName.dataset.name = thisTask.name;
       taskName.textContent = thisTask.name;
 
+      let taskRemove = document.createElement("i");
+      taskRemove.classList.add("projectRemove");
+      taskRemove.classList.add("fas");
+      taskRemove.classList.add("fa-trash");
+      taskRemove.dataset.name = thisTask.name;
+      taskRemove.dataset.project = thisTask.project;
+      taskRemove.addEventListener("click", function (e) {
+        if (confirm("Are you sure you want to remove task?"))
+          removeTaskByDOM(e);
+      });
+
       taskCard.appendChild(taskName);
 
+      taskCard.appendChild(taskRemove);
       container.appendChild(taskCard);
     }
   }

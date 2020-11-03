@@ -35,6 +35,8 @@ export function storeProjects() {
 }
 
 export function addNewProject(name, status) {
+  if (name == "" || name == null) return;
+
   for (let i = 0; i < projects.length; i++) {
     if (projects[i].name == name) {
       alert("Please choose a different name");

@@ -7,7 +7,12 @@ import {
   getSelectedProjectName,
 } from "./projects";
 import { addNewTask, loadTasks, clearTasks } from "./tasks";
-import { displayProjects, displayTasks, createSidebar } from "./domutil";
+import {
+  displayProjects,
+  displayTasks,
+  createSidebar,
+  createTaskContainer,
+} from "./domutil";
 
 console.log("Startup test");
 
@@ -17,7 +22,11 @@ createSidebar();
 //clearProjects();
 
 loadTasks();
-displayTasks(getSelectedProjectName());
+createTaskContainer();
 
-//addNewTask("TestTask2", "done", "urgent", "TestPrj3");
+//addNewTask("low", "done", "priority-low", "TestPrj");
+//addNewTask("medium", "done", "priority-medium", "TestPrj");
+//addNewTask("high", "done", "priority-high", "TestPrj");
 //clearTasks();
+
+displayTasks(getSelectedProjectName());

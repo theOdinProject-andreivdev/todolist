@@ -1,3 +1,5 @@
+import { displayTasks } from "./domutil";
+import { getSelectedProjectName } from "./projects";
 import { loadTasksJSON, storeTasksInJSON, clearTasksStorage } from "./storage";
 
 let tasks = [];
@@ -39,6 +41,7 @@ export function addNewTask(name, status, priority, project) {
   );
   tasks.push(new Task(name, status, priority, project));
   storeTasks();
+  displayTasks(getSelectedProjectName());
 }
 
 export function clearTasks() {
@@ -55,4 +58,16 @@ export function removeTask(name) {
 
 export function getAllTasks() {
   return tasks;
+}
+
+export function removeTaskByDOM(e) {
+  let name = e.target.dataset.name;
+  let prjname = e.target.dataset.project;
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].name == name && tasks[i].project == prjname) {
+      tasks.splice(i, 1);
+    }
+  }
+  storeTasks();
+  displayTasks(getSelectedProjectName());
 }
