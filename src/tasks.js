@@ -22,7 +22,7 @@ class Task {
 }
 
 export function loadTasks() {
-  let storageTasks = loadTasksJSON();
+  const storageTasks = loadTasksJSON();
 
   tasks = [];
   for (let i = 0; i < storageTasks.length; i++) {
@@ -36,11 +36,11 @@ export function loadTasks() {
     );
   }
 
-  console.log("Loaded tasks: " + JSON.stringify(tasks));
+  console.log(`Loaded tasks: ${JSON.stringify(tasks)}`);
 }
 
 export function storeTasks() {
-  console.log("Stored tasks: " + JSON.stringify(tasks));
+  console.log(`Stored tasks: ${JSON.stringify(tasks)}`);
   storeTasksInJSON(tasks);
 }
 

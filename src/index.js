@@ -1,19 +1,6 @@
-import {
-  loadProjects,
-  addNewProject,
-  clearProjects,
-  removeProject,
-  getAllProjects,
-  getSelectedProjectName,
-} from "./projects";
-import { addNewTask, loadTasks, clearTasks } from "./tasks";
-import {
-  displayProjects,
-  displayTasks,
-  createSidebar,
-  createTaskContainer,
-  createModal,
-} from "./domutil";
+import { loadProjects, getSelectedProjectName } from "./projects";
+import { loadTasks } from "./tasks";
+import { displayTasks, createSidebar, createTaskContainer } from "./domutil";
 
 console.log("Startup test");
 
