@@ -4,16 +4,15 @@ import {
   storeProjectsInJSON,
   clearProjectsStorage,
 } from "./storage";
-import { removeTasksForProjectName } from "./tasks";
+import { removeTasksForProject } from "./tasks";
 
 let projects = [];
 
 let selectedProject = "";
 
 class Project {
-  constructor(_name, _status) {
+  constructor(_name) {
     this.name = _name;
-    this.status = _status;
   }
 }
 
@@ -22,9 +21,7 @@ export function loadProjects() {
 
   projects = [];
   for (let i = 0; i < storageProjects.length; i++) {
-    projects.push(
-      new Project(storageProjects[i].name, storageProjects[i].status)
-    );
+    projects.push(new Project(storageProjects[i].name));
     if (selectedProject == "") selectedProject = projects[i].name;
   }
 
@@ -36,7 +33,7 @@ export function storeProjects() {
   storeProjectsInJSON(projects);
 }
 
-export function addNewProject(name, status) {
+export function addNewProject(name) {
   if (name == "" || name == null) return;
 
   for (let i = 0; i < projects.length; i++) {
@@ -46,8 +43,8 @@ export function addNewProject(name, status) {
     }
   }
 
-  console.log("New project : " + name + " " + status);
-  projects.push(new Project(name, status));
+  console.log("New project : " + name);
+  projects.push(new Project(name));
   storeProjects();
   displayProjects();
 }
@@ -58,22 +55,23 @@ export function clearProjects() {
   displayProjects();
 }
 
-export function removeProject(name) {
-  for (let i = 0; i < projects.length; i++) {
-    if (projects[i].name == name) {
+export function removeProject(prj) {
+  for (let i = projects.length - 1; i >= 0; i--) {
+    if (projects[i] == prj) {
       projects.splice(i, 1);
     }
   }
   selectProject(null);
-  removeTasksForProjectName(name);
+  removeTasksForProject(prj);
   storeProjects();
   displayProjects();
 }
 
 export function getProjectByName(name) {
   for (let i = 0; i < projects.length; i++) {
-    if (projects[i].name == name) return project[i];
+    if (projects[i].name == name) return projects[i];
   }
+  return null;
 }
 
 export function getAllProjects() {

@@ -12,6 +12,7 @@ import {
   displayTasks,
   createSidebar,
   createTaskContainer,
+  createModal,
 } from "./domutil";
 
 console.log("Startup test");
