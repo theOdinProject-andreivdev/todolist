@@ -65,7 +65,8 @@ body {
   height: 50px;
 }
 
-.addProject {
+.addProject,
+.clearStorage {
   border-bottom: 1px solid var(--margin-color);
   width: 100%;
   height: auto;
@@ -73,7 +74,8 @@ body {
   text-align: center;
 }
 
-.addProject i:hover {
+.addProject i:hover,
+.clearStorage p:hover {
   transform: scale(1.2);
 }
 

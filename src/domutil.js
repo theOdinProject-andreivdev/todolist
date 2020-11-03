@@ -8,7 +8,12 @@ import {
   getSelectedProjectName,
   removeProjectByDOM,
 } from "./projects";
-import { getAllTasks, addNewTask, removeTaskByDOM } from "./tasks";
+import {
+  clearProjectsStorage,
+  clearTasksStorage,
+  clearAllStorage,
+} from "./storage";
+import { getAllTasks, addNewTask, removeTaskByDOM, loadTasks } from "./tasks";
 
 export function createSidebar() {
   displayProjects();
@@ -17,6 +22,19 @@ export function createSidebar() {
   addButton.addEventListener("click", function () {
     let projectName = prompt("Please insert project name:");
     addNewProject(projectName, "notDone");
+  });
+
+  let clearButton = document.querySelector(".clearStorage");
+
+  clearButton.addEventListener("click", function () {
+    clearTasksStorage();
+    clearProjectsStorage();
+    clearAllStorage();
+    loadProjects();
+    createSidebar();
+    loadTasks();
+    createTaskContainer();
+    displayTasks(getSelectedProjectName());
   });
 }
 

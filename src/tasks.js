@@ -16,6 +16,7 @@ class Task {
 export function loadTasks() {
   let storageTasks = loadTasksJSON();
 
+  tasks = [];
   for (let i = 0; i < storageTasks.length; i++) {
     tasks.push(
       new Task(

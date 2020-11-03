@@ -25,3 +25,7 @@ export function storeTasksInJSON(tasks) {
 export function clearTasksStorage() {
   localStorage.removeItem("tasks");
 }
+
+export function clearAllStorage() {
+  localStorage.clear();
+}

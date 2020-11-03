@@ -19,6 +19,7 @@ class Project {
 export function loadProjects() {
   let storageProjects = loadProjectsJSON();
 
+  projects = [];
   for (let i = 0; i < storageProjects.length; i++) {
     projects.push(
       new Project(storageProjects[i].name, storageProjects[i].status)
