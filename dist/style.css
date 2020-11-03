@@ -88,8 +88,11 @@ body {
 }
 
 .projectName {
+  width: 100%;
   font-family: "Roboto", sans-serif;
   align-self: center;
+  text-align: justify; /* For Edge */
+  text-align-last: right;
   margin-right: 10px;
   color: var(--main-text);
 }

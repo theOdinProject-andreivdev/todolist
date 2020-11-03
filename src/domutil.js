@@ -75,7 +75,7 @@ export function displayProjects() {
     projectRemove.dataset.name = thisProject.name;
     projectRemove.addEventListener("click", function (e) {
       if (confirm("Are you sure you want to remove project?"))
-        removeProject(getSelectedProjectName());
+        removeProject(e.target.dataset.name);
     });
 
     let projectName = document.createElement("div");
@@ -83,7 +83,7 @@ export function displayProjects() {
     projectName.textContent = thisProject.name;
     projectName.dataset.name = thisProject.name;
 
-    projectCard.addEventListener("click", function (e) {
+    projectName.addEventListener("click", function (e) {
       selectProject(e.target.dataset.name);
     });
 

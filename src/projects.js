@@ -58,27 +58,13 @@ export function clearProjects() {
   displayProjects();
 }
 
-/* export function removeProjectByDOM(e) {
-  let name = e.target.dataset.name;
-  for (let i = 0; i < projects.length; i++) {
-    if (projects[i].name == name) {
-      projects.splice(i, 1);
-    }
-  } 
-
-  selectedProject = "";
-  removeTasksForProjectName(name);
-  storeProjects();
-  displayProjects();
-} */
-
 export function removeProject(name) {
   for (let i = 0; i < projects.length; i++) {
     if (projects[i].name == name) {
       projects.splice(i, 1);
     }
   }
-  selectedProject = "";
+  selectProject(null);
   removeTasksForProjectName(name);
   storeProjects();
   displayProjects();
