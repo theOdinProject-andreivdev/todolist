@@ -37,9 +37,13 @@ export function storeTasks() {
 }
 
 export function addNewTask(name, status, priority, project) {
-  console.log(
-    "New task : " + name + " " + status + " " + priority + " " + project
-  );
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].name == name) {
+      alert("Please choose a different name");
+      return;
+    }
+  }
+
   tasks.push(new Task(name, status, priority, project));
   storeTasks();
   displayTasks(getSelectedProjectName());
@@ -50,25 +54,21 @@ export function clearTasks() {
   clearTasksStorage();
 }
 
-export function removeTask(name) {
+export function removeTask(name, project) {
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].name == name) tasks.splice(i, 1);
+    if (tasks[i].name == name && tasks[i].project == project)
+      tasks.splice(i, 1);
   }
   storeTasks();
+  displayTasks(getSelectedProjectName());
 }
 
 export function getAllTasks() {
   return tasks;
 }
 
-export function removeTaskByDOM(e) {
-  let name = e.target.dataset.name;
-  let prjname = e.target.dataset.project;
+export function removeTasksForProjectName(prjname) {
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].name == name && tasks[i].project == prjname) {
-      tasks.splice(i, 1);
-    }
+    if (tasks[i].project == prjname) removeTask(tasks[i].name, prjname);
   }
-  storeTasks();
-  displayTasks(getSelectedProjectName());
 }

@@ -4,6 +4,7 @@ import {
   storeProjectsInJSON,
   clearProjectsStorage,
 } from "./storage";
+import { removeTasksForProjectName } from "./tasks";
 
 let projects = [];
 
@@ -57,22 +58,28 @@ export function clearProjects() {
   displayProjects();
 }
 
-export function removeProjectByName(name) {
-  console.log("rm");
-  for (let i = 0; i < projects.length; i++) {
-    if (projects[i].name == name) projects = projects.splice(i, 1);
-  }
-  storeProjects();
-  displayProjects();
-}
-
-export function removeProjectByDOM(e) {
+/* export function removeProjectByDOM(e) {
   let name = e.target.dataset.name;
   for (let i = 0; i < projects.length; i++) {
     if (projects[i].name == name) {
       projects.splice(i, 1);
     }
+  } 
+
+  selectedProject = "";
+  removeTasksForProjectName(name);
+  storeProjects();
+  displayProjects();
+} */
+
+export function removeProject(name) {
+  for (let i = 0; i < projects.length; i++) {
+    if (projects[i].name == name) {
+      projects.splice(i, 1);
+    }
   }
+  selectedProject = "";
+  removeTasksForProjectName(name);
   storeProjects();
   displayProjects();
 }
@@ -87,9 +94,9 @@ export function getAllProjects() {
   return projects;
 }
 
-export function selectProjectName(e) {
-  console.log("Selected: " + e.target.dataset.name);
-  selectedProject = e.target.dataset.name;
+export function selectProject(name) {
+  console.log("Selected: " + name);
+  selectedProject = name;
   displayProjects();
   displayTasks(selectedProject);
 }

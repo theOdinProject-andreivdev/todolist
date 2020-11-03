@@ -4,16 +4,15 @@ import {
   clearProjects,
   removeProject,
   getAllProjects,
-  selectProjectName,
+  selectProject,
   getSelectedProjectName,
-  removeProjectByDOM,
 } from "./projects";
 import {
   clearProjectsStorage,
   clearTasksStorage,
   clearAllStorage,
 } from "./storage";
-import { getAllTasks, addNewTask, removeTaskByDOM, loadTasks } from "./tasks";
+import { getAllTasks, addNewTask, removeTask, loadTasks } from "./tasks";
 
 export function createSidebar() {
   displayProjects();
@@ -42,6 +41,10 @@ export function createTaskContainer() {
   let addTaskButton = document.querySelector(".addTask");
 
   addTaskButton.addEventListener("click", function () {
+    if (getSelectedProjectName() == "" || getSelectedProjectName() == null) {
+      alert("Please select a project before adding a task!");
+      return;
+    }
     let taskName = prompt("Please enter task name");
 
     if (taskName != "" && taskName != null) {
@@ -72,7 +75,7 @@ export function displayProjects() {
     projectRemove.dataset.name = thisProject.name;
     projectRemove.addEventListener("click", function (e) {
       if (confirm("Are you sure you want to remove project?"))
-        removeProjectByDOM(e);
+        removeProject(getSelectedProjectName());
     });
 
     let projectName = document.createElement("div");
@@ -80,7 +83,9 @@ export function displayProjects() {
     projectName.textContent = thisProject.name;
     projectName.dataset.name = thisProject.name;
 
-    projectCard.addEventListener("click", selectProjectName);
+    projectCard.addEventListener("click", function (e) {
+      selectProject(e.target.dataset.name);
+    });
 
     projectCard.appendChild(projectRemove);
     projectCard.appendChild(projectName);
@@ -113,7 +118,7 @@ export function displayTasks(projectName) {
       taskRemove.dataset.project = thisTask.project;
       taskRemove.addEventListener("click", function (e) {
         if (confirm("Are you sure you want to remove task?"))
-          removeTaskByDOM(e);
+          removeTask(e.target.dataset.name, e.target.dataset.project);
       });
 
       taskCard.appendChild(taskName);
