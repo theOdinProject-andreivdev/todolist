@@ -7,13 +7,13 @@ import {
   getSelectedProjectName,
 } from "./projects";
 import { addNewTask, loadTasks, clearTasks } from "./tasks";
-import { displayProjects, displayTasks } from "./domutil";
+import { displayProjects, displayTasks, createSidebar } from "./domutil";
 
 console.log("Startup test");
 
 loadProjects();
-displayProjects();
-//addNewProject("TestPrj7", "notDone");
+createSidebar();
+//addNewProject("TestPrj3", "notDone");
 //clearProjects();
 
 loadTasks();

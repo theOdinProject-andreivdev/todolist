@@ -6,11 +6,22 @@ import {
   getAllProjects,
   selectProjectName,
   getSelectedProjectName,
+  removeProjectByDOM,
 } from "./projects";
 import { getAllTasks } from "./tasks";
 
+export function createSidebar() {
+  displayProjects();
+  let addButton = document.querySelector(".addProject");
+
+  addButton.addEventListener("click", function () {
+    let projectName = prompt("Please insert project name:");
+    addNewProject(projectName, "notDone");
+  });
+}
+
 export function displayProjects() {
-  let sidebar = document.querySelector(".sidebar");
+  let sidebar = document.querySelector(".sidebarContainer");
 
   while (sidebar.firstChild) sidebar.removeChild(sidebar.firstChild);
   for (let i = 0; i < getAllProjects().length; i++) {
@@ -24,6 +35,15 @@ export function displayProjects() {
 
     projectCard.dataset.name = thisProject.name;
 
+    let projectRemove = document.createElement("div");
+    projectRemove.classList.add("projectRemove");
+    projectRemove.dataset.name = thisProject.name;
+    projectRemove.textContent = "Remove";
+    projectRemove.addEventListener("click", function (e) {
+      if (confirm("Are you sure you want to remove project?"))
+        removeProjectByDOM(e);
+    });
+
     let projectName = document.createElement("div");
     projectName.classList.add("projectName");
     projectName.textContent = thisProject.name;
@@ -31,6 +51,7 @@ export function displayProjects() {
 
     projectCard.addEventListener("click", selectProjectName);
 
+    projectCard.appendChild(projectRemove);
     projectCard.appendChild(projectName);
     sidebar.appendChild(projectCard);
   }
