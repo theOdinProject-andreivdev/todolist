@@ -137,6 +137,7 @@ export function displayTasks(projectName) {
         e.stopImmediatePropagation();
         if (confirm("Are you sure you want to remove task?")) {
           removeTask(e.target.dataset.name, e.target.dataset.project);
+          displayTasks(getSelectedProjectName());
         }
       });
 
